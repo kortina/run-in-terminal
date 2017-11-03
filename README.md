@@ -2,6 +2,8 @@
 
 Use a keyboard shortcut to run any command in the Integrated Terminal of [Virtual Studio Code](https://code.visualstudio.com/).
 
+You can [install it from the VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=kortina.run-in-terminal).
+
 This extension is inspired by [send-to-terminal](https://github.com/malkomalko/send-to-terminal), but instead of only allowing 2 comands per filetype match, this extension allows an arbitrary number of commands per filetype.
 
 ![demo](images/run-in-terminal.gif)
