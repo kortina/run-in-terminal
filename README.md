@@ -4,7 +4,7 @@ Use a keyboard shortcut to run any command in the Integrated Terminal of [Virtua
 
 This extension is inspired by [send-to-terminal](https://github.com/malkomalko/send-to-terminal), but instead of only allowing 2 comands per filetype match, this extension allows an arbitrary number of commands per filetype.
 
-![demo](run-in-terminal.gif)
+![demo](images/run-in-terminal.gif)
 
 ## `keybindings.json`
 

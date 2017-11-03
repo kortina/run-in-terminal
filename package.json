@@ -3,7 +3,13 @@
     "displayName": "Run in Terminal",
     "description": "Use a keyboard shortcut to run any command in the Integrated Terminal.",
     "version": "0.0.1",
-    "publisher": "kortina",
+    "publisher": "andrewkortina",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kortina/run-in-terminal"
+      },
+
+    "icon": "images/run-in-terminal.png",
     "engines": {
         "vscode": "^1.17.0"
     },
