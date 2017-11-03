@@ -1,65 +1,126 @@
-# run-in-terminal README
+# Run in Terminal, Extension for `vscode`
 
-Run any command in the Integrated Terminal of vscode using a keyboard shortcut.
+Use a keyboard shortcut to run any command in the Integrated Terminal of [Virtual Studio Code](https://code.visualstudio.com/).
 
-## Features
+This extension is inspired by [send-to-terminal](https://github.com/malkomalko/send-to-terminal), but instead of only allowing 2 comands per filetype match, this extension allows an arbitrary number of commands per filetype.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Settings and Keybindings
 
-For example if there is an image subfolder under your extension project workspace:
+#### `keybindings.json`
 
-\!\[feature X\]\(images/feature-x.png\)
+The simplest way to configure a `keybindings.json` using the `cmd` argument for the `runInTerminal.run` command:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+```...
+{
+    "key": "ctrl+e",
+    "command": "runInTerminal.run",
+    "args": {"cmd": "/usr/bin/env bash ${relativeFile}", "match": ".*"},
+    "when": "resourceLangId == shellscript" 
+},
+{
+    "key": "ctrl+e",
+    "command": "runInTerminal.run",
+    "args": {"cmd": "/usr/bin/env python ${relativeFile}", "match": ".*"},
+    "when": "resourceLangId == python" 
+},
+...
+```
 
-## Requirements
+Note above that when using `keybindings.json` you might use the 'when' context (rather than the `match` expression) to specify different commands with the same keybinding for different filetypes. If you do so, use '.*' as your match expression.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+#### `settings.json`
 
-## Extension Settings
+If you are using [VSCodeVim](https://github.com/VSCodeVim/Vim), things look a little bit different, because there is no support for a 'when' context to perform different commands for different filetypes.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+##### 'runInTerminal.commands'
 
-For example:
+Here is what you might put in your `settings.json` when configuring with VSCodeVim:
 
-This extension contributes the following settings:
+```...
+    "vim.otherModesKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>", "r", "a"], "after": [],
+            "commands": [ {"command": "runInTerminal.runLast" } ]
+        },
+        {
+            "before": ["<leader>", "r", "l"], "after": [],
+            "commands": [ {"command": "runInTerminal.run", "args": {"name": "l"}} ]
+        },
+        {
+            "before": ["<leader>", "r", "b"], "after": [],
+            "commands": [ {"command": "runInTerminal.run", "args": {"name": "b"}} ]
+        },
+        {
+            "before": ["<leader>", "r", "s"], "after": [],
+            "commands": [ {"command": "runInTerminal.run", "args": {"name": "s"}} ]
+        }
+    ],
+    "runInTerminal.commands": [
+        {"match": "_spec\\.rb$", "name": "l", "cmd": "./bin/rspec ${relativeFile}:${line}"},
+        {"match": "_spec\\.rb$", "name": "b", "cmd": "./bin/rspec ${relativeFile}"},
+        {"match": "_spec\\.rb$", "name": "s", "cmd": "./bin/rspec"},
+        {"match": "(spec|test)\\.js$", "name": "b", "xvfb-run ./node_modules/karma/bin/karma start --single-run=true --single-file=\"${relativeFile}\""}
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+    ],
+...
+```
+
+Note above, you specify each keybinding in your `vim` settings only once with a target `name`, and then in your `runInTerminal.commands`, you can specify multiple commands with the same `name` but different file `match` expressions. In this case, `<leader> r b` maps to the `name` 'b', which has a command for `ruby` and for `javascript`.
+
+#### 'runInTerminal.clearBeforeRun'
+
+```...
+    "runInTerminal.clearBeforeRun": false, // defaults false
+...
+```
+
+## Substitution Tokens
+
+You can use the following substition tokens in `cmd` strings:
+
+* ${column}
+* ${cwd}
+* ${env.Name} // replace environment variables
+* ${file}
+* ${fileBasename}
+* ${fileBasenameNoExt}
+* ${fileDirname}
+* ${fileExtname}
+* ${line}
+* ${relativeFile}
+* ${workspaceRoot}
+
+## Commands
+
+### `runInTerminal.run`
+
+You should provide an `object` as the value of the `arguments` key when calling this command. This object must have **either** (i) a `name` pointing to a command in `runInTerminal.commands` **or** (ii) a file `match` expression **and** `cmd` to execute.
+
+(i) 
+```...
+    "command": "runInTerminal.run",
+    "args": {"name": "focused"},
+...
+```
+
+(ii) 
+```...
+    "command": "runInTerminal.run",
+    "args": {"match": "\\.py$", "cmd": "/usr/bin/env python ${relativeFile}"},
+...
+```
+
+### `runInTerminal.runLast`
+
+Runs the last `cmd` run by `runInTerminal.run` again.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+* The `${relativeFile}` substition token only works when you have opened an entire folder with `vscode`, not a single file.
+* Unknown behavior when many commands in 'runInTerminal.commands' match both the `match` expression and `name` of the command run.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on OSX or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on OSX or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (OSX) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Initial release.

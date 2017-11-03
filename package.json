@@ -1,7 +1,7 @@
 {
     "name": "run-in-terminal",
     "displayName": "Run in Terminal",
-    "description": "Run arbitrary commands (with arguments) in integrated Terminal.",
+    "description": "Use a keyboard shortcut to run any command in the Integrated Terminal.",
     "version": "0.0.1",
     "publisher": "kortina",
     "engines": {
@@ -31,7 +31,7 @@
             "properties": {
                 "runInTerminal.clearBeforeRun": {
                     "type": "boolean",
-                    "default": true,
+                    "default": false,
                     "description": "Clear terminal before run?"
                 },
                 "sendToTerminal.commands": {
