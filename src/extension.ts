@@ -4,6 +4,41 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 
+// Static class that creates and holds a reference to a terminal and can run commands in it.
+class Term {
+    static termName: string = 'run-in-terminal'; // eslint-disable-line no-undef
+    static term: vscode.Terminal; // eslint-disable-line no-undef
+
+    static _term() {
+        if (!Term.term) {
+            Term.term = vscode.window.createTerminal(Term.termName);
+            Term.term.show();
+
+
+            // if user closes the terminal, delete our reference:
+            vscode.window.onDidCloseTerminal((event) => {
+                if (Term._term() && event.name === Term.termName) {
+                    Term.term = undefined;
+                }
+            });
+        }
+        return Term.term;
+    }
+
+    static run(command: string) {
+        console.log(`Running ${command} in ${Term._term()}`);
+        Term._term().sendText(command, true);
+    }
+
+    static dispose() {
+        if (Term._term()) {
+            Term._term().dispose();
+            Term.term = undefined;
+        }
+    }
+
+}
+
 export function isMatch(pattern: string, fileName: string): boolean {
     return pattern.length > 0 && new RegExp(pattern).test(fileName)
 }
@@ -33,50 +68,60 @@ export function buildCommand(editor: vscode.TextEditor, command: string): string
     return command;
 }
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+function showError(msg: string):void {
+    vscode.window.showErrorMessage(`run-in-terminal: ${msg}`);
+}
+
+function runCommand(editor: vscode.TextEditor, args?: Array<string>) {
+
+    if (!editor) {
+        console.log("abort runCommand: no editor.");
+        return;
+    }
+
+    ////////////////////
+    // parse args
+    ////////////////////
+
+    var matchPattern = '.*';
+    var command = 'echo "You must pass a command to runInTerminal.run"';
+    if (args && args[0]) {
+        matchPattern = args[0];
+    }
+    if (args && args[1]) {
+        command = args[1];
+    }
+
+    try {
+        if (!isMatch(matchPattern, editor.document.fileName)) {
+            showError(`${editor.document.fileName} did not match ${matchPattern}.`);
+            return;
+        }
+    } catch (e) {
+        console.log(e.stack);
+        showError(e.message);
+        return;
+    }
+    command = buildCommand(editor, command);
+
+    // Display a message box to the user
+    vscode.window.showInformationMessage(`runInTerminal(matchPattern: ${matchPattern}, command: "${command}" )`);
+    Term.run(command);
+
+}
+
+
+// vscode.extensions API
 export function activate(context: vscode.ExtensionContext) {
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
     console.log('activate runInTerminal');
 
 
-    function runCommand(editor: vscode.TextEditor, args?: Array<string>) {
-        if (!editor) {
-            console.log("abort runCommand: no editor.");
-            return;
-        }
-
-        ////////////////////
-        // parse args
-        ////////////////////
-
-        var matchPattern = '.*';
-        var command = 'echo "You must pass a command to runInTerminal.run"';
-        if (args && args[0]) {
-            matchPattern = args[0];
-        }
-        if (args && args[1]) {
-            command = args[1];
-        }
-
-        if (!isMatch(matchPattern, editor.document.fileName)) {
-            console.log(`abort runCommand: ${editor.document.fileName} did not match ${matchPattern}`);
-            return;
-        }
-        command = buildCommand(editor, command);
-
-        // Display a message box to the user
-        vscode.window.showInformationMessage(`runInTerminal(matchPattern: ${matchPattern}, command: "${command}" )`);
-
-    }
-
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
     let disposable = vscode.commands.registerCommand('runInTerminal.run', (args?: Array<string>) => {
-        var editor = vscode.window.activeTextEditor
-        runCommand(editor, args);
+        console.log('disposable run');
+        runCommand(vscode.window.activeTextEditor, args);
 
     });
     context.subscriptions.push(disposable);
@@ -84,6 +129,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 }
 
-// this method is called when your extension is deactivated
+// vscode.extensions API
 export function deactivate() {
+    Term.dispose();
 }
