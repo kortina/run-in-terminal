@@ -9,7 +9,7 @@
         "url": "https://github.com/kortina/run-in-terminal"
       },
 
-    "icon": "images/run-in-terminal.png",
+    "icon": "https://github.com/kortina/run-in-terminal/blob/master/images/run-in-terminal.png?raw=true",
     "engines": {
         "vscode": "^1.17.0"
     },
