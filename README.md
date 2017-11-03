@@ -6,13 +6,12 @@ This extension is inspired by [send-to-terminal](https://github.com/malkomalko/s
 
 ![demo](run-in-terminal.gif)
 
-## Settings and Keybindings
-
-#### `keybindings.json`
+## `keybindings.json`
 
 The simplest way to configure a `keybindings.json` using the `cmd` argument for the `runInTerminal.run` command:
 
-```...
+```
+...
 {
     "key": "ctrl+e",
     "command": "runInTerminal.run",
@@ -30,15 +29,16 @@ The simplest way to configure a `keybindings.json` using the `cmd` argument for 
 
 Note above that when using `keybindings.json` you might use the 'when' context (rather than the `match` expression) to specify different commands with the same keybinding for different filetypes. If you do so, use '.*' as your match expression.
 
-#### `settings.json`
+## `settings.json`
 
 If you are using [VSCodeVim](https://github.com/VSCodeVim/Vim), things look a little bit different, because there is no support for a 'when' context to perform different commands for different filetypes.
 
-##### 'runInTerminal.commands'
+### 'runInTerminal.commands'
 
 Here is what you might put in your `settings.json` when configuring with VSCodeVim:
 
-```...
+```
+...
     "vim.otherModesKeyBindingsNonRecursive": [
         {
             "before": ["<leader>", "r", "a"], "after": [],
@@ -62,14 +62,13 @@ Here is what you might put in your `settings.json` when configuring with VSCodeV
         {"match": "_spec\\.rb$", "name": "b", "cmd": "./bin/rspec ${relativeFile}"},
         {"match": "_spec\\.rb$", "name": "s", "cmd": "./bin/rspec"},
         {"match": "(spec|test)\\.js$", "name": "b", "xvfb-run ./node_modules/karma/bin/karma start --single-run=true --single-file=\"${relativeFile}\""}
-
     ],
 ...
 ```
 
 Note above, you specify each keybinding in your `vim` settings only once with a target `name`, and then in your `runInTerminal.commands`, you can specify multiple commands with the same `name` but different file `match` expressions. In this case, `<leader> r b` maps to the `name` 'b', which has a command for `ruby` and for `javascript`.
 
-#### 'runInTerminal.clearBeforeRun'
+### 'runInTerminal.clearBeforeRun'
 
 ```...
     "runInTerminal.clearBeforeRun": false, // defaults false
