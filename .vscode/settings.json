@@ -6,6 +6,9 @@
     "files.exclude": {
         "out": false // set this to true to hide the "out" folder with the compiled JS files
     },
+    "runInTerminal.commands": [
+        {"match": ".*\\.(js|ts)$", "name": "b", "cmd": "npm run compile && node ./node_modules/vscode/bin/test"}
+    ],
     "search.exclude": {
         "out": true // set this to false to include "out" folder in search results
     }

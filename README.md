@@ -1,6 +1,6 @@
 # run-in-terminal README
 
-This is the README for your extension "run-in-terminal". After writing up a brief description, we recommend including the following sections.
+Run any command in the Integrated Terminal of vscode using a keyboard shortcut.
 
 ## Features
 

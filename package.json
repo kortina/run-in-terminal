@@ -11,7 +11,8 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:runInTerminal.run"
+        "onCommand:runInTerminal.run",
+        "onCommand:runInTerminal.runLast"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -19,6 +20,10 @@
             {
                 "command": "runInTerminal.run",
                 "title": "Run in Terminal"
+            },
+            {
+                "command": "runInTerminal.runLast",
+                "title": "Re-Run Last Command in Terminal"
             }
         ]
     },
