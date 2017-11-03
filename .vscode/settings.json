@@ -1,5 +1,8 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+    "eslint.options": {
+        "configFile": ".eslintrc.json"
+    },
     "files.exclude": {
         "out": false // set this to true to hide the "out" folder with the compiled JS files
     },

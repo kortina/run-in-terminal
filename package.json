@@ -11,14 +11,14 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:runInTerminal.run"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.sayHello",
-                "title": "Hello World"
+                "command": "runInTerminal.run",
+                "title": "Run in Terminal"
             }
         ]
     },
@@ -30,9 +30,14 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.5.3",
-        "vscode": "^1.1.5",
+        "@types/mocha": "^2.2.42",
         "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
+        "vscode": "^1.1.5"
+    },
+    "dependencies": {
+        "eslint": "^4.10.0",
+        "eslint-plugin-typescript": "^0.8.0",
+        "typescript-eslint-parser": "^8.0.1",
+        "typescript": "~2.5.1"
     }
 }
