@@ -63,7 +63,7 @@ Here is what you might put in your `settings.json` when configuring with VSCodeV
         {"match": "_spec\\.rb$", "name": "l", "cmd": "./bin/rspec ${relativeFile}:${line}"},
         {"match": "_spec\\.rb$", "name": "b", "cmd": "./bin/rspec ${relativeFile}"},
         {"match": "_spec\\.rb$", "name": "s", "cmd": "./bin/rspec"},
-        {"match": "(spec|test)\\.js$", "name": "b", "xvfb-run ./node_modules/karma/bin/karma start --single-run=true --single-file=\"${relativeFile}\""}
+        {"match": "(spec|test)\\.js$", "name": "b", "cmd": "xvfb-run ./node_modules/karma/bin/karma start --single-run=true --single-file=\"${relativeFile}\""}
     ],
 ...
 ```
