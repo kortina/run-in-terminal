@@ -90,6 +90,7 @@ export function buildCommand(editor: vscode.TextEditor, command: string): string
     command = command.replace(/\${fileBasenameNoExt}/g, `${path.basename(editor.document.fileName, extName)}`)
     command = command.replace(/\${cwd}/g, `${process.cwd()}`)
 
+    command = vscode.workspace.getConfiguration('runInTerminal.clearBeforeRun') ? ` clear; ${command}` : ` ${command}`
     // replace environment variables ${env.Name}
     command = command.replace(/\${env\.([^}]+)}/g, (sub, envName) => {
         return process.env[envName]

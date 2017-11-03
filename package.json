@@ -25,7 +25,40 @@
                 "command": "runInTerminal.runLast",
                 "title": "Re-Run Last Command in Terminal"
             }
-        ]
+        ],
+        "configuration": {
+            "title": "Run in Terminal Configuration",
+            "properties": {
+                "runInTerminal.clearBeforeRun": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Clear terminal before run?"
+                },
+                "sendToTerminal.commands": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "`name` of command. When `runInTerminal.run` is called with {'name': 'x'}, the command with `name` = 'x' and `match` =~ the current filename will be executed.",
+                                "default": null 
+                            },
+                            "match": {
+                                "type": "string",
+                                "description": "`match` for filename. When `runInTerminal.run` is called with {'name': 'x'}, the command with `name` = 'x' and `match` =~ the current filename will be executed.",
+                                "default": null 
+                            },
+                            "cmd": {
+                                "type": "string",
+                                "description": "Command to execute if found by `name` and `match`.",
+                                "default": null
+                            }
+                        }
+                    }
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
