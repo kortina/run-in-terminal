@@ -4,7 +4,11 @@ Use a keyboard shortcut to run any command in the Integrated Terminal of [Virtua
 
 You can [install it from the VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=kortina.run-in-terminal).
 
-This extension is inspired by [send-to-terminal](https://github.com/malkomalko/send-to-terminal), but instead of only allowing 2 comands per filetype match, this extension allows an arbitrary number of commands per filetype.
+I built this because I wanted something for `vscode` like benmills' amazing [vimux](https://github.com/benmills/vimux) for `vim`.
+
+The `[send-to-terminal](https://github.com/malkomalko/send-to-terminal)` extension was close to what I wanted,
+but I wanted to be able to run more than 2 commands per filetype match. 
+`run-in-terminal` is based on `send-to-terminal`, but allows an arbitrary number of commands per filetype.
 
 ![demo](images/run-in-terminal.gif)
 
@@ -72,14 +76,15 @@ Note above, you specify each keybinding in your `vim` settings only once with a 
 
 ### 'runInTerminal.clearBeforeRun'
 
-```...
+```
+...
     "runInTerminal.clearBeforeRun": false, // defaults false
 ...
 ```
 
 ## Substitution Tokens
 
-You can use the following substition tokens in `cmd` strings:
+You can use the following substitution tokens in `cmd` strings:
 
 * ${column}
 * ${cwd}
@@ -100,14 +105,16 @@ You can use the following substition tokens in `cmd` strings:
 You should provide an `object` as the value of the `arguments` key when calling this command. This object must have **either** (i) a `name` pointing to a command in `runInTerminal.commands` **or** (ii) a file `match` expression **and** `cmd` to execute.
 
 (i) 
-```...
+```
+...
     "command": "runInTerminal.run",
     "args": {"name": "focused"},
 ...
 ```
 
 (ii) 
-```...
+```
+...
     "command": "runInTerminal.run",
     "args": {"match": "\\.py$", "cmd": "/usr/bin/env python ${relativeFile}"},
 ...
@@ -119,7 +126,7 @@ Runs the last `cmd` run by `runInTerminal.run` again.
 
 ## Known Issues
 
-* The `${relativeFile}` substition token only works when you have opened an entire folder with `vscode`, not a single file.
+* The `${relativeFile}` substitution token only works when you have opened an entire folder with `vscode`, not a single file.
 * Unknown behavior when many commands in 'runInTerminal.commands' match both the `match` expression and `name` of the command run.
 
 ## Release Notes
