@@ -6,7 +6,7 @@ You can [install it from the VSCode Marketplace](https://marketplace.visualstudi
 
 I built this because I wanted something for `vscode` like benmills' amazing [vimux](https://github.com/benmills/vimux) for `vim`.
 
-The `[send-to-terminal](https://github.com/malkomalko/send-to-terminal)` extension was close to what I wanted,
+The [send-to-terminal](https://github.com/malkomalko/send-to-terminal) extension was close to what I wanted,
 but I wanted to be able to run more than 2 commands per filetype match. 
 `run-in-terminal` is based on `send-to-terminal`, but allows an arbitrary number of commands per filetype.
 
