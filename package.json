@@ -1,17 +1,16 @@
 {
-    "name": "run-in-terminal",
-    "displayName": "Run in Terminal",
+    "name": "run-in-terminal-relative-path",
+    "displayName": "Run in Terminal with Relative Path Fix",
     "description": "Use a keyboard shortcut to run any command in the Integrated Terminal.",
-    "version": "0.0.1",
-    "publisher": "kortina",
+    "version": "0.0.2",
+    "publisher": "he9lin",
     "repository": {
         "type": "git",
-        "url": "https://github.com/kortina/run-in-terminal"
-      },
-
+        "url": "https://github.com/he9lin/run-in-terminal"
+    },
     "icon": "images/run-in-terminal.png",
     "engines": {
-        "vscode": "^1.17.0"
+        "vscode": "^1.29.0"
     },
     "categories": [
         "Other"
@@ -48,12 +47,12 @@
                             "name": {
                                 "type": "string",
                                 "description": "`name` of command. When `runInTerminal.run` is called with {'name': 'x'}, the command with `name` = 'x' and `match` =~ the current filename will be executed.",
-                                "default": null 
+                                "default": null
                             },
                             "match": {
                                 "type": "string",
                                 "description": "`match` for filename. When `runInTerminal.run` is called with {'name': 'x'}, the command with `name` = 'x' and `match` =~ the current filename will be executed.",
-                                "default": null 
+                                "default": null
                             },
                             "cmd": {
                                 "type": "string",
