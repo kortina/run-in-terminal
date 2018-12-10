@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as paths from './vs/base/common/paths';
 
 interface Args { // eslint-disable-line no-undef
     name?: string; // eslint-disable-line no-undef
@@ -89,7 +90,7 @@ class Cmd {
                 return needle.cmd;
             }
 
-        } 
+        }
         return undefined;
     }
 
@@ -101,7 +102,7 @@ class Cmd {
 
         command = command.replace(/\${line}/g, `${line}`)
         command = command.replace(/\${column}/g, `${column}`)
-        command = command.replace(/\${relativeFile}/g, relativeFile)
+        command = command.replace(/\${relativeFile}/g, paths.normalize(relativeFile))
         command = command.replace(/\${file}/g, `${this.editor.document.fileName}`)
         command = command.replace(/\${workspaceRoot}/g, `${vscode.workspace.rootPath}`)
         command = command.replace(/\${fileBasename}/g, `${path.basename(this.editor.document.fileName)}`)
