@@ -16,7 +16,7 @@ interface Config { // eslint-disable-line no-undef
     clearBeforeRun: boolean; // eslint-disable-line no-undef
 }
 
-var LAST_COMMAND: Args | null = null
+var LAST_COMMAND: string | null = null
 
 // Static class that creates and holds a reference to a terminal and can run commands in it.
 class Term {
@@ -49,7 +49,6 @@ class Term {
             Term.term = undefined;
         }
     }
-
 }
 
 class Cmd {
@@ -58,7 +57,6 @@ class Cmd {
     cmd: string | null; // eslint-disable-line no-undef
     editor: vscode.TextEditor; // eslint-disable-line no-undef
     config: Config; // eslint-disable-line no-undef
-
 
     constructor(editor: vscode.TextEditor, config: Config, name?: string, match?: string, cmd?: string) {
         this.name = name || null;
@@ -131,8 +129,6 @@ export function isMatch(pattern: string, fileName: string): boolean {
     }
 }
 
-
-
 function showError(msg: string):void {
     vscode.window.showErrorMessage(`run-in-terminal: ${msg}`);
 }
@@ -147,7 +143,6 @@ function runCommand(editor: vscode.TextEditor, args?: Args) {
         return;
     }
     var a:Args = args;
-    LAST_COMMAND = a;
     console.log(`run-int-terminal: ${JSON.stringify(a)}`);
 
     var cfg = vscode.workspace.getConfiguration('runInTerminal');
@@ -167,12 +162,12 @@ function runCommand(editor: vscode.TextEditor, args?: Args) {
         console.log(`run-in-terminal: no command found for args: ${JSON.stringify(a)}`);
         return;
     }
-    Term.run(
-        cmd.build(cmdStr)
-    );
 
+    var cmdStrRun = cmd.build(cmdStr);
+    LAST_COMMAND = cmdStrRun;
+
+    Term.run(cmdStrRun);
 }
-
 
 // vscode.extensions API
 export function activate(context: vscode.ExtensionContext) {
@@ -189,7 +184,7 @@ export function activate(context: vscode.ExtensionContext) {
     // The commandId parameter must match the command field in package.json
     disposable = vscode.commands.registerCommand('runInTerminal.runLast', () => {
         if (LAST_COMMAND) {
-            runCommand(vscode.window.activeTextEditor, LAST_COMMAND);
+            Term.run(LAST_COMMAND);
         }
     });
     context.subscriptions.push(disposable);
