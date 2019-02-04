@@ -86,17 +86,17 @@ Note above, you specify each keybinding in your `vim` settings only once with a 
 
 You can use the following substitution tokens in `cmd` strings:
 
-* ${column}
-* ${cwd}
-* ${env.Name} // replace environment variables
-* ${file}
-* ${fileBasename}
-* ${fileBasenameNoExt}
-* ${fileDirname}
-* ${fileExtname}
-* ${line}
-* ${relativeFile}
-* ${workspaceRoot}
+* `${column}`
+* `${cwd}`
+* `${env.Name}` (replace environment variables)
+* `${file}`
+* `${fileBasename}`
+* `${fileBasenameNoExt}`
+* `${fileDirname}`
+* `${fileExtname}`
+* `${line}`
+* `${relativeFile}`
+* `${workspaceRoot}`
 
 ## Commands
 
