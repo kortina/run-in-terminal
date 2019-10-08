@@ -78,7 +78,7 @@
         "vscode": "^1.1.5"
     },
     "dependencies": {
-        "eslint": "^4.10.0",
+        "eslint": "^4.18.2",
         "eslint-plugin-typescript": "^0.8.0",
         "typescript": "~2.5.1",
         "typescript-eslint-parser": "^8.0.1"
