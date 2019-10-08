@@ -7,8 +7,13 @@ You can [install it from the VSCode Marketplace](https://marketplace.visualstudi
 I built this because I wanted something for `vscode` like benmills' amazing [vimux](https://github.com/benmills/vimux) for `vim`.
 
 The [send-to-terminal](https://github.com/malkomalko/send-to-terminal) extension was close to what I wanted,
-but I wanted to be able to run more than 2 commands per filetype match. 
+but I wanted to be able to run more than 2 commands per filetype match.
 `run-in-terminal` is based on `send-to-terminal`, but allows an arbitrary number of commands per filetype.
+
+The native `Tasks` functionality in `vscode` is also close, but configuration is only possible at
+the project level, [not the global level](https://github.com/Microsoft/vscode/issues/1435).
+
+Here is what `Run in Terminal` looks like:
 
 ![demo](images/run-in-terminal.gif)
 
@@ -22,18 +27,18 @@ The simplest way to configure a `keybindings.json` using the `cmd` argument for 
     "key": "ctrl+e",
     "command": "runInTerminal.run",
     "args": {"cmd": "/usr/bin/env bash ${relativeFile}", "match": ".*"},
-    "when": "resourceLangId == shellscript" 
+    "when": "resourceLangId == shellscript"
 },
 {
     "key": "ctrl+e",
     "command": "runInTerminal.run",
     "args": {"cmd": "/usr/bin/env python ${relativeFile}", "match": ".*"},
-    "when": "resourceLangId == python" 
+    "when": "resourceLangId == python"
 },
 ...
 ```
 
-Note above that when using `keybindings.json` you might use the 'when' context (rather than the `match` expression) to specify different commands with the same keybinding for different filetypes. If you do so, use '.*' as your match expression.
+Note above that when using `keybindings.json` you might use the 'when' context (rather than the `match` expression) to specify different commands with the same keybinding for different filetypes. If you do so, use '.\*' as your match expression.
 
 ## `settings.json`
 
@@ -86,17 +91,17 @@ Note above, you specify each keybinding in your `vim` settings only once with a 
 
 You can use the following substitution tokens in `cmd` strings:
 
-* `${column}`
-* `${cwd}`
-* `${env.Name}` (replace environment variables)
-* `${file}`
-* `${fileBasename}`
-* `${fileBasenameNoExt}`
-* `${fileDirname}`
-* `${fileExtname}`
-* `${line}`
-* `${relativeFile}`
-* `${workspaceRoot}`
+- `${column}`
+- `${cwd}`
+- `${env.Name}` (replace environment variables)
+- `${file}`
+- `${fileBasename}`
+- `${fileBasenameNoExt}`
+- `${fileDirname}`
+- `${fileExtname}`
+- `${line}`
+- `${relativeFile}`
+- `${workspaceRoot}`
 
 ## Commands
 
@@ -104,7 +109,8 @@ You can use the following substitution tokens in `cmd` strings:
 
 You should provide an `object` as the value of the `arguments` key when calling this command. This object must have **either** (i) a `name` pointing to a command in `runInTerminal.commands` **or** (ii) a file `match` expression **and** `cmd` to execute.
 
-(i) 
+(i)
+
 ```
 ...
     "command": "runInTerminal.run",
@@ -112,7 +118,8 @@ You should provide an `object` as the value of the `arguments` key when calling 
 ...
 ```
 
-(ii) 
+(ii)
+
 ```
 ...
     "command": "runInTerminal.run",
@@ -126,8 +133,8 @@ Runs the last `cmd` run by `runInTerminal.run` again.
 
 ## Known Issues
 
-* The `${relativeFile}` substitution token only works when you have opened an entire folder with `vscode`, not a single file.
-* Unknown behavior when many commands in 'runInTerminal.commands' match both the `match` expression and `name` of the command run.
+- The `${relativeFile}` substitution token only works when you have opened an entire folder with `vscode`, not a single file.
+- Unknown behavior when many commands in 'runInTerminal.commands' match both the `match` expression and `name` of the command run.
 
 ## Release Notes
 
