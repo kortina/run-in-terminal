@@ -40,7 +40,7 @@
                     "default": false,
                     "description": "Clear terminal before run?"
                 },
-                "sendToTerminal.commands": {
+                "runInTerminal.commands": {
                     "type": "array",
                     "items": {
                         "type": "object",
