@@ -50,7 +50,7 @@ Here is what you might put in your `settings.json` when configuring with VSCodeV
 
 ```
 ...
-    "vim.otherModesKeyBindingsNonRecursive": [
+    "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": ["<leader>", "r", "a"], "after": [],
             "commands": [ {"command": "runInTerminal.runLast" } ]
