@@ -82,7 +82,8 @@
     "dependencies": {
         "eslint": "^4.10.0",
         "eslint-plugin-typescript": "^0.8.0",
+        "typescript": "~2.5.1",
         "typescript-eslint-parser": "^8.0.1",
-        "typescript": "~2.5.1"
+        "vsce": "^1.67.1"
     }
 }
