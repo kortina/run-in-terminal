@@ -11,12 +11,6 @@ interface Args {
   cmd?: string; // eslint-disable-line no-undef
 }
 
-interface Config {
-  // eslint-disable-line no-undef
-  commands?: Array<Args>; // eslint-disable-line no-undef
-  clearBeforeRun: boolean; // eslint-disable-line no-undef
-}
-
 var LAST_COMMAND: Args | null = null;
 
 // Static class that creates and holds a reference to a terminal and can run commands in it.
@@ -57,11 +51,11 @@ class Cmd {
   match: string | null; // eslint-disable-line no-undef
   cmd: string | null; // eslint-disable-line no-undef
   editor: vscode.TextEditor; // eslint-disable-line no-undef
-  config: Config; // eslint-disable-line no-undef
+  config: vscode.WorkspaceConfiguration; // eslint-disable-line no-undef
 
   constructor(
     editor: vscode.TextEditor,
-    config: Config,
+    config: vscode.WorkspaceConfiguration,
     name?: string,
     match?: string,
     cmd?: string
@@ -89,12 +83,18 @@ class Cmd {
       return this.cmd;
     } else if (this.name) {
       var that = this;
-      var commands: Array<Args> = this.config.commands;
-      console.log('commands: ', JSON.stringify(commands));
-      var needle = commands.find(c => {
+      var all = this.config.inspect('commands');
+      var finder = (c: Args) => {
         console.log('find', JSON.stringify(c), 'c.cmd', `${c.cmd}`);
         return c.name == that.name && that.isMatch(c.match) && `${c.cmd}` != '';
-      });
+      };
+      // look through commands configurations from most specific to least.
+      // prcedence defined at: https://code.visualstudio.com/api/references/vscode-api#WorkspaceConfiguration
+      var needle =
+        ((all.workspaceFolderValue || []) as Args[]).find(finder) ||
+        ((all.workspaceValue || []) as Args[]).find(finder) ||
+        ((all.globalValue || []) as Args[]).find(finder) ||
+        ((all.defaultValue || []) as Args[]).find(finder);
       if (needle) {
         return needle.cmd;
       }
@@ -125,7 +125,7 @@ class Cmd {
     );
     command = command.replace(/\${cwd}/g, `${process.cwd()}`);
 
-    command = this.config.clearBeforeRun ? ` clear; ${command}` : ` ${command}`;
+    command = this.config.get('clearBeforeRun') ? ` clear; ${command}` : ` ${command}`;
     // replace environment variables ${env.Name}
     command = command.replace(/\${env\.([^}]+)}/g, (sub, envName) => {
       return process.env[envName];
@@ -165,16 +165,7 @@ function runCommand(editor: vscode.TextEditor, args?: Args) {
 
   var cfg = vscode.workspace.getConfiguration('runInTerminal');
   console.log('inspect', JSON.stringify(cfg.inspect('commands')));
-  var cmd = new Cmd(
-    editor,
-    {
-      clearBeforeRun: cfg.get('clearBeforeRun'),
-      commands: cfg.get('commands'),
-    },
-    a.name,
-    a.match,
-    a.cmd
-  );
+  var cmd = new Cmd(editor, cfg, a.name, a.match, a.cmd);
   var cmdStr = cmd.findCmd();
 
   if (!cmdStr) {
