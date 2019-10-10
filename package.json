@@ -2,7 +2,7 @@
     "name": "run-in-terminal",
     "displayName": "Run in Terminal",
     "description": "Use a keyboard shortcut to run any command in the Integrated Terminal.",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "kortina",
     "repository": {
         "type": "git",
@@ -75,15 +75,15 @@
         "test": "npm run compile && node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "@types/mocha": "^2.2.42",
-        "@types/node": "^7.0.43",
-        "vscode": "^1.1.5"
+        "vscode": "^1.1.5",
+        "vsce": "^1.67.1"
     },
     "dependencies": {
+        "@types/mocha": "^2.2.42",
+        "@types/node": "^7.0.43",
         "eslint": "^4.10.0",
         "eslint-plugin-typescript": "^0.8.0",
         "typescript": "~2.5.1",
-        "typescript-eslint-parser": "^8.0.1",
-        "vsce": "^1.67.1"
+        "typescript-eslint-parser": "^8.0.1"
     }
 }
