@@ -2,7 +2,7 @@
     "name": "run-in-terminal",
     "displayName": "Run in Terminal",
     "description": "Use a keyboard shortcut to run any command in the Integrated Terminal.",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "publisher": "kortina",
     "repository": {
         "type": "git",
@@ -66,6 +66,8 @@
         }
     },
     "scripts": {
+        "vpackage": "./node_modules/.bin/vsce package",
+        "vpublish": "./node_modules/.bin/vsce publish",
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
