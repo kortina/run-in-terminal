@@ -138,6 +138,25 @@ Runs the last `cmd` run by `runInTerminal.run` again.
 
 ## Release Notes
 
+### 0.0.2
+
+Add webpack config. Add example `sh` and `py` script to test with. Fix typos in README. Fix configuration property title for `runInTerminal.commands`.
+
 ### 0.0.1
 
 Initial release.
+
+## Development and Release
+
+To create a new release,
+
+```sh
+# bump version number in package.json
+npm run vpackage # package the release, creates ,vsix
+npm run vpublish # publish to store, see https://code.visualstudio.com/api/working-with-extensions/publishing-extension
+# Will prompt for Azure Devops Personal Access Token, get fresh one at:
+# https://dev.azure.com/andrewkortina/
+# On "Error: Failed Request: Unauthorized(401)"
+# see: https://github.com/Microsoft/vscode-vsce/issues/11
+# The reason for returning 401 was that I didn't set the Accounts setting to all accessible accounts.
+```
