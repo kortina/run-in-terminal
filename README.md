@@ -136,20 +136,6 @@ Runs the last `cmd` run by `runInTerminal.run` again.
 - The `${relativeFile}` substitution token only works when you have opened an entire folder with `vscode`, not a single file.
 - Unknown behavior when many commands in 'runInTerminal.commands' match both the `match` expression and `name` of the command run.
 
-## Release Notes
-
-### 0.0.3
-
-Undo a bunch of GitHub auto-fixes that broke the extension.
-
-### 0.0.2
-
-Add webpack config. Add example `sh` and `py` script to test with. Fix typos in README. Fix configuration property title for `runInTerminal.commands`.
-
-### 0.0.1
-
-Initial release.
-
 ## Development and Release
 
 To create a new release,

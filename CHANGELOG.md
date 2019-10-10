@@ -1,7 +1,17 @@
-# Change Log
-All notable changes to the "run-in-terminal" extension will be documented in this file.
+## Release Notes
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+### 0.0.4
 
-## [Unreleased]
-- Initial release
+Fix bug where any project level settings defining runInTerminal.commands were blowing away global and default commands
+
+### 0.0.3
+
+Undo a bunch of GitHub auto-fixes that broke the extension.
+
+### 0.0.2
+
+Add webpack config. Add example `sh` and `py` script to test with. Fix typos in README. Fix configuration property title for `runInTerminal.commands`.
+
+### 0.0.1
+
+Initial release.
