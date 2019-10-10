@@ -138,6 +138,10 @@ Runs the last `cmd` run by `runInTerminal.run` again.
 
 ## Release Notes
 
+### 0.0.3
+
+Undo a bunch of GitHub auto-fixes that broke the extension.
+
 ### 0.0.2
 
 Add webpack config. Add example `sh` and `py` script to test with. Fix typos in README. Fix configuration property title for `runInTerminal.commands`.
