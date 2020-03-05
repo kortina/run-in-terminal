@@ -1,6 +1,6 @@
 # Run in Terminal, an Extension for `vscode`
 
-Use a keyboard shortcut to run any command in the Integrated Terminal of [Virtual Studio Code](https://code.visualstudio.com/).
+Use a keyboard shortcut to run any command in the Integrated Terminal of [Visual Studio Code](https://code.visualstudio.com/).
 
 You can [install it from the VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=kortina.run-in-terminal).
 
