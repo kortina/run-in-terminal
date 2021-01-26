@@ -131,6 +131,24 @@ You should provide an `object` as the value of the `arguments` key when calling 
 
 Runs the last `cmd` run by `runInTerminal.run` again.
 
+## Example of a Javascript / Typescript Line Runner
+
+Here is an example of a VS Code extension, written in typescript, with a line runner bound to `,rl`:
+
+The `settings.json`:
+https://github.com/kortina/vscode-markdown-notes/blob/ba40b5cea0d10873b571e3e91d453dd7119cb89d/.vscode/settings.json#L8
+
+A shell script that finds the jest bdd description given a `file:lineno`:
+https://github.com/kortina/vscode-markdown-notes/blob/ba40b5cea0d10873b571e3e91d453dd7119cb89d/jest-focused.sh
+
+## More Example Settings
+
+My `runInTerminal.commands` in `settings.json`:
+https://github.com/kortina/dotfiles/blob/f9465ac8dd82738b3f7a4415dd0c49412c86f841/vscode/settings.json#L68
+
+My `vim.normalModeKeyBindingsNonRecursive` bindings to `runInTerminal` in `settings.json`:
+https://github.com/kortina/dotfiles/blob/f9465ac8dd82738b3f7a4415dd0c49412c86f841/vscode/settings.json#L181
+
 ## Known Issues
 
 - The `${relativeFile}` substitution token only works when you have opened an entire folder with `vscode`, not a single file.
@@ -138,11 +156,17 @@ Runs the last `cmd` run by `runInTerminal.run` again.
 
 ## Development and Release
 
+To run locally
+```sh
+# install deps
+npm install --dev
+```
+
 To create a new release,
 
 ```sh
 # bump version number in package.json
-npm run vpackage # package the release, creates ,vsix
+npm run vpackage # package the release, creates vsix
 npm run vpublish # publish to store, see https://code.visualstudio.com/api/working-with-extensions/publishing-extension
 # Will prompt for Azure Devops Personal Access Token, get fresh one at:
 # https://dev.azure.com/andrewkortina/
