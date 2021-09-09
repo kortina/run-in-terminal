@@ -39,6 +39,11 @@
                     "default": false,
                     "description": "Clear terminal before run?"
                 },
+                "runInTerminal.saveCommandInHistory": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Save command in history?"
+                },
                 "runInTerminal.commands": {
                     "type": "array",
                     "items": {

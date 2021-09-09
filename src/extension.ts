@@ -125,7 +125,12 @@ class Cmd {
     );
     command = command.replace(/\${cwd}/g, `${process.cwd()}`);
 
-    command = this.config.get('clearBeforeRun') ? ` clear; ${command}` : command;
+    if(this.config.get('saveCommandInHistory')) {
+      command = this.config.get('clearBeforeRun') ? `clear; ${command}` : command;
+    } else {
+      command = this.config.get('clearBeforeRun') ? ` clear; ${command}` : ` ${command}`;
+    }
+
     // replace environment variables ${env.Name}
     command = command.replace(/\${env\.([^}]+)}/g, (sub, envName) => {
       return process.env[envName];
