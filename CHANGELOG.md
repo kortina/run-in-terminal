@@ -1,5 +1,11 @@
 ## Release Notes
 
+### 0.0.6
+
+Add new configuration that allows you to choose whether or not to save command in history `runInTerminal.saveCommandInHistory`. Tx @mrcasals for #37
+
+Merge in dependabot updates.
+
 ### 0.0.4
 
 Fix bug where any project level settings defining runInTerminal.commands were blowing away global and default commands

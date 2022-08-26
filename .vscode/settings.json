@@ -10,8 +10,9 @@
         "out": true // set this to false to include "out" folder in search results
     },
     "cSpell.words": [
-        "Extname",
         "benmills",
+        "Extname",
+        "mrcasals",
         "rspec",
         "vimux",
         "vpackage",

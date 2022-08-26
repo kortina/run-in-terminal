@@ -2,7 +2,7 @@
     "name": "run-in-terminal",
     "displayName": "Run in Terminal",
     "description": "Use a keyboard shortcut to run any command in the Integrated Terminal.",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "publisher": "kortina",
     "repository": {
         "type": "git",
