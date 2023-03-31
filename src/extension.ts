@@ -25,7 +25,7 @@ class Term {
 
       // if user closes the terminal, delete our reference:
       vscode.window.onDidCloseTerminal(event => {
-        if (Term._term() && event.name === Term.termName) {
+        if (Term._term().processId == event.processId && event.name === Term.termName) {
           Term.term = undefined;
         }
       });
