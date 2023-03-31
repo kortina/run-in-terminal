@@ -17,17 +17,24 @@ var LAST_COMMAND: Args | null = null;
 class Term {
   static termName: string = 'run-in-terminal'; // eslint-disable-line no-undef
   static term: vscode.Terminal; // eslint-disable-line no-undef
+  static processId: number; // eslint-disable-line no-undef
 
   static _term() {
     if (!Term.term) {
       Term.term = vscode.window.createTerminal(Term.termName);
       Term.term.show(true);
+      Term.term.processId.then((procId) => {
+        Term.processId = procId;
+      });
 
       // if user closes the terminal, delete our reference:
-      vscode.window.onDidCloseTerminal(event => {
-        if (Term._term() && event.name === Term.termName) {
-          Term.term = undefined;
-        }
+      vscode.window.onDidCloseTerminal((event) => {
+        event.processId.then((procId) => {
+          if (procId == Term.processId) {
+            Term.term = undefined;
+            Term.processId = undefined;
+          }
+        });
       });
     }
     return Term.term;
@@ -89,7 +96,7 @@ class Cmd {
         return c.name == that.name && that.isMatch(c.match) && `${c.cmd}` != '';
       };
       // look through commands configurations from most specific to least.
-      // prcedence defined at: https://code.visualstudio.com/api/references/vscode-api#WorkspaceConfiguration
+      // precedence defined at: https://code.visualstudio.com/api/references/vscode-api#WorkspaceConfiguration
       var needle =
         ((all.workspaceFolderValue || []) as Args[]).find(finder) ||
         ((all.workspaceValue || []) as Args[]).find(finder) ||
@@ -125,7 +132,7 @@ class Cmd {
     );
     command = command.replace(/\${cwd}/g, `${process.cwd()}`);
 
-    if(this.config.get('saveCommandInHistory')) {
+    if (this.config.get('saveCommandInHistory')) {
       command = this.config.get('clearBeforeRun') ? `clear; ${command}` : command;
     } else {
       command = this.config.get('clearBeforeRun') ? ` clear; ${command}` : ` ${command}`;
