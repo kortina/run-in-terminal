@@ -37,6 +37,7 @@ class Term {
         });
       });
     }
+    Term.term.show(true);
     return Term.term;
   }
 
