@@ -34,6 +34,11 @@
         "configuration": {
             "title": "Run in Terminal Configuration",
             "properties": {
+				"runInTerminal.moveFocusToTerminalOnRun": {
+					"type": "boolean",
+					"default": false,
+					"description": "Move focus to terminal on run?"
+				},
                 "runInTerminal.clearBeforeRun": {
                     "type": "boolean",
                     "default": false,

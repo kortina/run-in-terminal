@@ -37,7 +37,10 @@ class Term {
         });
       });
     }
-    Term.term.show(true);
+    var cfg = vscode.workspace.getConfiguration("runInTerminal");
+    if (cfg.get("moveFocusToTerminalOnRun")) {
+      Term.term.show(true);
+    }
     return Term.term;
   }
 
