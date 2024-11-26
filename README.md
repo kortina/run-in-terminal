@@ -102,6 +102,7 @@ You can use the following substitution tokens in `cmd` strings:
 - `${line}`
 - `${relativeFile}`
 - `${workspaceRoot}`
+- `${workspaceName}`
 
 ## Commands
 

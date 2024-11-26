@@ -120,6 +120,7 @@ class Cmd {
     command = command.replace(/\${relativeFile}/g, relativeFile);
     command = command.replace(/\${file}/g, `${this.editor.document.fileName}`);
     command = command.replace(/\${workspaceRoot}/g, `${vscode.workspace.rootPath}`);
+    command = command.replace(/\${workspaceName}/g, `${vscode.workspace.name}`);
     command = command.replace(
       /\${fileBasename}/g,
       `${path.basename(this.editor.document.fileName)}`
